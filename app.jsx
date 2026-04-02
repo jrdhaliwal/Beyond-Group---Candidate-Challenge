@@ -8,7 +8,7 @@ function App() {
     const [days, setDays] = useState('');
     const [distance, setDistance] = useState('');
     const [isContingency, setIsContingency] = useState(false);
-    const [fuelRate, setFuelRate] = useState('');
+    const [ratePerKm, setRatePerKm] = useState('');
 
     const PPE = 150;
     const proportionerMaintenance = 300;
@@ -23,9 +23,9 @@ function App() {
     const materialCost = drumsNeeded * 2300;
     const siRevenue = rawLbs * 13;
     const labourCost = Number(workers) * Number(days) * Number(hoursPerDay) * 40 * 1.20;
-    const hotelCost = Number(workers) * Number(days) * 100;
+    const hotelCost = Number(workers) * Number(days) * 200;
     const foodCost = Number(workers) * Number(days) * 75;
-    const fuelCost = Number(distance) * 2 * Number(fuelRate);
+    const fuelCost = Number(distance) * 2 * Number(ratePerKm);
     const fixedCost = PPE + proportionerMaintenance + miscConsumables + overheadAllocation;
     const totalCost = materialCost + labourCost + hotelCost + foodCost + fuelCost + fixedCost;
     const contingencyPrice = (siRevenue + mobCharge) * 0.04;
@@ -68,8 +68,8 @@ function App() {
                         <td style={{paddingBottom: "4px"}}><input type="number" value={distance} onChange={e => setDistance(e.target.value)} /></td>
                     </tr>
                     <tr>
-                        <td style={{paddingRight: "16px", paddingBottom: "4px"}}>Fuel Rate ($/L):</td>
-                        <td style={{paddingBottom: "4px"}}><input type="number" value={fuelRate} onChange={e => setFuelRate(e.target.value)} /></td>
+                        <td style={{paddingRight: "16px", paddingBottom: "4px"}}>Fuel Rate ($/km):</td>
+                        <td style={{paddingBottom: "4px"}}><input type="number" value={ratePerKm} onChange={e => setRatePerKm(e.target.value)} /></td>
                     </tr>
                     <tr>
                         <td style={{paddingRight: "16px", paddingBottom: "4px"}}>Deferred to next season?</td>
