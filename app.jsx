@@ -31,7 +31,8 @@ function App() {
 
     // Calculations for all costs
     const labourCost = Number(workers) * Number(days) * Number(hoursPerDay) * 40 * 1.20;
-    const hotelCost = Number(workers) * Number(days) * 200;
+    const nights = Math.ceil(Number(days) - 1);
+    const hotelCost = Number(workers) * Number(nights) * 200;
     const foodCost = Number(workers) * Number(days) * 75;
     const fuelCost = Number(distance) * 2 * Number(ratePerKm);
     const fixedCost = PPE + proportionerMaintenance + miscConsumables + overheadAllocation;
@@ -92,150 +93,148 @@ function App() {
         </div>
         
         {isValid ? (
-        <div>
-            <h2>Internal Cost Breakdown</h2>
-            <table style={{borderCollapse: "collapse"}}>
-                <tbody>
-                    <tr>
-                        <td style={{paddingRight: "16px"}}>Material:</td>
-                        <td style={{textAlign: "right"}}>${fmt(materialCost)}</td>
-                    </tr>
-                    <tr>
-                        <td style={{paddingRight: "16px"}}>Labour:</td>
-                        <td style={{textAlign: "right"}}>${fmt(labourCost)}</td>
-                    </tr>
-                    <tr>
-                        <td style={{paddingRight: "16px"}}>Fuel Cost:</td>
-                        <td style={{textAlign: "right"}}>${fmt(fuelCost)}</td>
-                    </tr>
-                    <tr>
-                        <td style={{paddingRight: "16px"}}>Worker Costs:</td>
-                        <td style={{textAlign: "right"}}>${fmt(hotelCost + foodCost)}</td>
-                    </tr>
-                    <tr>
-                        <td colSpan={2}>
-                            <table style={{borderCollapse: "collapse", marginLeft: "16px"}}>
-                                <tbody>
-                                    <tr>
-                                        <td style={{paddingRight: "16px"}}>Hotel:</td>
-                                        <td style={{textAlign: "right"}}>${fmt(hotelCost)}</td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{paddingRight: "16px"}}>Food:</td>
-                                        <td style={{textAlign: "right"}}>${fmt(foodCost)}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style={{paddingRight: "16px"}}>Fixed Cost:</td>
-                        <td style={{textAlign: "right"}}>${fmt(fixedCost)}</td>
-                    </tr>
-                    <tr>
-                        <td colSpan={2}>
-                            <table style={{borderCollapse: "collapse", marginLeft: "16px"}}>
-                                <tbody>
-                                    <tr>
-                                        <td style={{paddingRight: "16px"}}>PPE:</td>
-                                        <td style={{textAlign: "right"}}>${fmt(PPE)}</td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{paddingRight: "16px"}}>Maintenance:</td>
-                                        <td style={{textAlign: "right"}}>${fmt(proportionerMaintenance)}</td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{paddingRight: "16px"}}>Misc:</td>
-                                        <td style={{textAlign: "right"}}>${fmt(miscConsumables)}</td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{paddingRight: "16px"}}>Overhead:</td>
-                                        <td style={{textAlign: "right"}}>${fmt(overheadAllocation)}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    {extendedDays > 0 && (
+        <><div>
+                <h2>Internal Cost Breakdown</h2>
+                <table style={{ borderCollapse: "collapse" }}>
+                    <tbody>
                         <tr>
-                            <td style={{paddingRight: "16px"}}>Extended Day(s) cost:</td>
-                            <td style={{textAlign: "right"}}>${fmt(extendedDayRate)}</td>
-                        </tr>)}
-                    <tr>
-                        <td style={{paddingRight: "16px", borderBottom: "1px solid black", paddingBottom: "2px"}}></td>
-                        <td style={{textAlign: "right", borderBottom: "1px solid black", paddingBottom: "2px"}}></td>
-                    </tr>
-                    <tr>
-                        <td style={{paddingRight: "16px"}}><strong>Total Cost:</strong></td>
-                        <td style={{textAlign: "right"}}><strong>${fmt(totalCost)}</strong></td>
-                    </tr>
-                    <tr style={{height: "16px"}}></tr>
-                    <tr>
-                        <td style={{paddingRight: "16px"}}><strong>Gross Margin: </strong></td>
-                        <td style={{textAlign: "right"}}>${fmt(subtotal)} - ${fmt(totalCost)} = <strong>${fmt(margin)}</strong></td>
-                    </tr>
-                    <tr>
-                        <td style={{paddingRight: "16px"}}><strong>Margin Percent: </strong></td>
-                        <td style={{textAlign: "right"}}>${fmt(margin)} / ${fmt(subtotal)} = <strong>${fmt(marginPercent)}%</strong></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                            <td style={{ paddingRight: "16px" }}>Material:</td>
+                            <td style={{ textAlign: "right" }}>${fmt(materialCost)}</td>
+                        </tr>
+                        <tr>
+                            <td style={{ paddingRight: "16px" }}>Labour:</td>
+                            <td style={{ textAlign: "right" }}>${fmt(labourCost)}</td>
+                        </tr>
+                        <tr>
+                            <td style={{ paddingRight: "16px" }}>Fuel Cost:</td>
+                            <td style={{ textAlign: "right" }}>${fmt(fuelCost)}</td>
+                        </tr>
+                        <tr>
+                            <td style={{ paddingRight: "16px" }}>Worker Costs:</td>
+                            <td style={{ textAlign: "right" }}>${fmt(hotelCost + foodCost)}</td>
+                        </tr>
+                        <tr>
+                            <td colSpan={2}>
+                                <table style={{ borderCollapse: "collapse", marginLeft: "16px" }}>
+                                    <tbody>
+                                        <tr>
+                                            <td style={{ paddingRight: "16px" }}>Hotel:</td>
+                                            <td style={{ textAlign: "right" }}>${fmt(hotelCost)}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ paddingRight: "16px" }}>Food:</td>
+                                            <td style={{ textAlign: "right" }}>${fmt(foodCost)}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style={{ paddingRight: "16px" }}>Fixed Cost:</td>
+                            <td style={{ textAlign: "right" }}>${fmt(fixedCost)}</td>
+                        </tr>
+                        <tr>
+                            <td colSpan={2}>
+                                <table style={{ borderCollapse: "collapse", marginLeft: "16px" }}>
+                                    <tbody>
+                                        <tr>
+                                            <td style={{ paddingRight: "16px" }}>PPE:</td>
+                                            <td style={{ textAlign: "right" }}>${fmt(PPE)}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ paddingRight: "16px" }}>Maintenance:</td>
+                                            <td style={{ textAlign: "right" }}>${fmt(proportionerMaintenance)}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ paddingRight: "16px" }}>Misc:</td>
+                                            <td style={{ textAlign: "right" }}>${fmt(miscConsumables)}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ paddingRight: "16px" }}>Overhead:</td>
+                                            <td style={{ textAlign: "right" }}>${fmt(overheadAllocation)}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        {extendedDays > 0 && (
+                            <tr>
+                                <td style={{ paddingRight: "16px" }}>Extended Day(s) cost:</td>
+                                <td style={{ textAlign: "right" }}>${fmt(extendedDayRate)}</td>
+                            </tr>)}
+                        <tr>
+                            <td style={{ paddingRight: "16px", borderBottom: "1px solid black", paddingBottom: "2px" }}></td>
+                            <td style={{ textAlign: "right", borderBottom: "1px solid black", paddingBottom: "2px" }}></td>
+                        </tr>
+                        <tr>
+                            <td style={{ paddingRight: "16px" }}><strong>Total Cost:</strong></td>
+                            <td style={{ textAlign: "right" }}><strong>${fmt(totalCost)}</strong></td>
+                        </tr>
+                        <tr style={{ height: "16px" }}></tr>
+                        <tr>
+                            <td style={{ paddingRight: "16px" }}><strong>Gross Margin: </strong></td>
+                            <td style={{ textAlign: "right" }}>${fmt(subtotal)} - ${fmt(totalCost)} = <strong>${fmt(margin)}</strong></td>
+                        </tr>
+                        <tr>
+                            <td style={{ paddingRight: "16px" }}><strong>Margin Percent: </strong></td>
+                            <td style={{ textAlign: "right" }}>${fmt(margin)} / ${fmt(subtotal)} = <strong>${fmt(marginPercent)}%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><div>
+                    <h2>Client Quote</h2>
+                    <table style={{ borderCollapse: "collapse" }}>
+                        <tbody>
+                            <tr>
+                                <td style={{ paddingRight: "16px" }}>Foam S&amp;I:</td>
+                                <td style={{ textAlign: "right" }}>${fmt(siRevenue)}</td>
+                            </tr>
+                            <tr>
+                                <td style={{ paddingRight: "16px" }}>Mobilization:</td>
+                                <td style={{ textAlign: "right" }}>${fmt(mobCharge)}</td>
+                            </tr>
+                            {isContingency && (<tr>
+                                <td style={{ paddingRight: "16px" }}>Escalation Rate:</td>
+                                <td style={{ textAlign: "right" }}>${fmt(contingencyPrice)}</td>
+                            </tr>)}
+                            <tr>
+                                <td style={{ paddingRight: "16px", borderBottom: "1px solid black", paddingBottom: "2px" }}></td>
+                                <td style={{ textAlign: "right", borderBottom: "1px solid black", paddingBottom: "2px" }}></td>
+                            </tr>
+                            <tr>
+                                <td style={{ paddingRight: "16px" }}>Subtotal:</td>
+                                {isContingency ? (
+                                    <td style={{ textAlign: "right" }}>${fmt(subtotalContingent)}</td>
+                                ) : (
+                                    <td style={{ textAlign: "right" }}>${fmt(subtotalNonContingent)}</td>
+                                )}
+                            </tr>
+                            <tr>
+                                <td style={{ paddingRight: "16px" }}>GST (5%):</td>
+                                {isContingency ? (
+                                    <td style={{ textAlign: "right" }}>${fmt(gstContingent)}</td>
+                                ) : (
+                                    <td style={{ textAlign: "right" }}>${fmt(gstNonContingent)}</td>
+                                )}
+                            </tr>
+                            <tr>
+                                <td style={{ paddingRight: "16px", borderBottom: "1px solid black", paddingBottom: "2px" }}></td>
+                                <td style={{ textAlign: "right", borderBottom: "1px solid black", paddingBottom: "2px" }}></td>
+                            </tr>
+                            <tr>
+                                <td style={{ paddingRight: "16px" }}><strong>TOTAL:</strong></td>
+                                {isContingency ? (
+                                    <td style={{ textAlign: "right" }}><strong>${fmt(grandTotalC)}</strong></td>
+                                ) : (
+                                    <td style={{ textAlign: "right" }}><strong>${fmt(grandTotalN)}</strong></td>
+                                )}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div></>
         ) : (
             <p>Fill in all fields above to see estimate.</p>
         )}
-
-        <div>
-            <h2>Client Quote</h2>
-            <table style={{borderCollapse: "collapse"}}>
-                <tbody>
-                    <tr>
-                        <td style={{paddingRight: "16px"}}>Foam S&amp;I:</td>
-                        <td style={{textAlign: "right"}}>${fmt(siRevenue)}</td>
-                    </tr>
-                    <tr>
-                        <td style={{paddingRight: "16px"}}>Mobilization:</td>
-                        <td style={{textAlign: "right"}}>${fmt(mobCharge)}</td>
-                    </tr>
-                    {isContingency && (<tr>
-                        <td style={{paddingRight: "16px"}}>Escalation Rate:</td>
-                        <td style={{textAlign: "right"}}>${fmt(contingencyPrice)}</td>
-                    </tr>)}
-                    <tr>
-                        <td style={{paddingRight: "16px", borderBottom: "1px solid black", paddingBottom: "2px"}}></td>
-                        <td style={{textAlign: "right", borderBottom: "1px solid black", paddingBottom: "2px"}}></td>
-                    </tr>
-                    <tr>
-                        <td style={{paddingRight: "16px"}}>Subtotal:</td>
-                        {isContingency ? (
-                            <td style={{textAlign: "right"}}>${fmt(subtotalContingent)}</td>
-                        ) : (
-                            <td style={{textAlign: "right"}}>${fmt(subtotalNonContingent)}</td>
-                        )}
-                    </tr>
-                    <tr>
-                        <td style={{paddingRight: "16px"}}>GST (5%):</td>
-                        {isContingency ? (
-                            <td style={{textAlign: "right"}}>${fmt(gstContingent)}</td>
-                        ) : (
-                            <td style={{textAlign: "right"}}>${fmt(gstNonContingent)}</td>
-                        )}
-                    </tr>
-                    <tr>
-                        <td style={{paddingRight: "16px", borderBottom: "1px solid black", paddingBottom: "2px"}}></td>
-                        <td style={{textAlign: "right", borderBottom: "1px solid black", paddingBottom: "2px"}}></td>
-                    </tr>
-                    <tr>
-                        <td style={{paddingRight: "16px"}}><strong>TOTAL:</strong></td>
-                        {isContingency ? (
-                            <td style={{textAlign: "right"}}><strong>${fmt(grandTotalC)}</strong></td>
-                        ) : (
-                            <td style={{textAlign: "right"}}><strong>${fmt(grandTotalN)}</strong></td>
-                        )}
-                    </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
 }
 
