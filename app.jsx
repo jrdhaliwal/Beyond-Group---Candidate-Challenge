@@ -27,7 +27,9 @@ function App() {
     const foodCost = Number(workers) * Number(days) * 75;
     const fuelCost = Number(distance) * 2 * Number(ratePerKm);
     const fixedCost = PPE + proportionerMaintenance + miscConsumables + overheadAllocation;
-    const totalCost = materialCost + labourCost + hotelCost + foodCost + fuelCost + fixedCost;
+    const extendedDays = Math.max(0, Number(days) - 2);
+    const extendedDayRate = extendedDays * 750;
+    const totalCost = materialCost + labourCost + hotelCost + foodCost + fuelCost + fixedCost + extendedDayRate;
     const contingencyPrice = (siRevenue + mobCharge) * 0.04;
     const subtotalContingent = siRevenue + mobCharge + contingencyPrice;
     const subtotalNonContingent = siRevenue + mobCharge;
@@ -143,6 +145,10 @@ function App() {
                             </table>
                         </td>
                     </tr>
+                    <tr>
+                                        <td style={{paddingRight: "16px"}}>Extended Day(s) cost:</td>
+                                        <td style={{textAlign: "right"}}>${fmt(extendedDayRate)}</td>
+                                    </tr>
                     <tr>
                         <td style={{paddingRight: "16px", borderBottom: "1px solid black", paddingBottom: "2px"}}></td>
                         <td style={{textAlign: "right", borderBottom: "1px solid black", paddingBottom: "2px"}}></td>
