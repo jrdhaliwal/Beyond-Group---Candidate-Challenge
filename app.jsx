@@ -145,10 +145,11 @@ function App() {
                             </table>
                         </td>
                     </tr>
-                    <tr>
-                                        <td style={{paddingRight: "16px"}}>Extended Day(s) cost:</td>
-                                        <td style={{textAlign: "right"}}>${fmt(extendedDayRate)}</td>
-                                    </tr>
+                    {extendedDays > 0 && (
+                        <tr>
+                            <td style={{paddingRight: "16px"}}>Extended Day(s) cost:</td>
+                            <td style={{textAlign: "right"}}>${fmt(extendedDayRate)}</td>
+                        </tr>)}
                     <tr>
                         <td style={{paddingRight: "16px", borderBottom: "1px solid black", paddingBottom: "2px"}}></td>
                         <td style={{textAlign: "right", borderBottom: "1px solid black", paddingBottom: "2px"}}></td>
@@ -182,13 +183,10 @@ function App() {
                         <td style={{paddingRight: "16px"}}>Mobilization:</td>
                         <td style={{textAlign: "right"}}>${fmt(mobCharge)}</td>
                     </tr>
-                    <tr>
+                    {isContingency && (<tr>
                         <td style={{paddingRight: "16px"}}>Contingency:</td>
-                        {isContingency ? (<td style={{textAlign: "right"}}>${fmt(contingencyPrice)}</td>
-                        ) : (
-                            <td style={{textAlign: "right"}}>N/A</td>
-                        )}
-                    </tr>
+                        <td style={{textAlign: "right"}}>${fmt(contingencyPrice)}</td>
+                    </tr>)}
                     <tr>
                         <td style={{paddingRight: "16px", borderBottom: "1px solid black", paddingBottom: "2px"}}></td>
                         <td style={{textAlign: "right", borderBottom: "1px solid black", paddingBottom: "2px"}}></td>
