@@ -2,14 +2,20 @@ const { useState } = React;
 
 function App() {
     // State variables for the application
-    const [volume, setVolume] = useState('');
-    const [workers, setWorkers] = useState('');
-    const [hoursPerDay, setHoursPerDay] = useState('');
-    const [days, setDays] = useState('');
-    const [distance, setDistance] = useState('');
+    const [volume, setVolume] = useState('18');
+    const [workers, setWorkers] = useState('2');
+    const [hoursPerDay, setHoursPerDay] = useState('8');
+    const [days, setDays] = useState('2');
+    const [distance, setDistance] = useState('215');
     const [isContingency, setIsContingency] = useState(false);
-    const [ratePerKm, setRatePerKm] = useState('');
+    const [ratePerKm, setRatePerKm] = useState('0.72');
 
+    // For input validation
+    const isValid = Number(volume) > 0 && Number(workers) > 0 &&
+                Number(hoursPerDay) > 0 && Number(days) > 0 &&
+                Number(distance) > 0 && Number(ratePerKm) > 0;
+
+    // Fixed costs
     const PPE = 150;
     const proportionerMaintenance = 300;
     const miscConsumables = 300;
@@ -22,6 +28,8 @@ function App() {
     const drumsNeeded = Math.ceil(lbsWithWaste / 1000);
     const materialCost = drumsNeeded * 2300;
     const siRevenue = rawLbs * 13;
+
+    // Calculations for all costs
     const labourCost = Number(workers) * Number(days) * Number(hoursPerDay) * 40 * 1.20;
     const hotelCost = Number(workers) * Number(days) * 200;
     const foodCost = Number(workers) * Number(days) * 75;
@@ -31,6 +39,8 @@ function App() {
     const extendedDayRate = extendedDays * 750;
     const totalCost = materialCost + labourCost + hotelCost + foodCost + fuelCost + fixedCost + extendedDayRate;
     const contingencyPrice = (siRevenue + mobCharge) * 0.04;
+
+    // Calculations for the quote
     const subtotalContingent = siRevenue + mobCharge + contingencyPrice;
     const subtotalNonContingent = siRevenue + mobCharge;
     const gstContingent = subtotalContingent * 0.05;
@@ -43,7 +53,7 @@ function App() {
     const fmt = (n) => n.toLocaleString('en-CA', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
     return <div>
-        <h1>Beyond Group Foam Bid Calculator</h1>
+        <h1>Beyond Group - Foam Bid Calculator</h1>
 
         <div>
             <h2>Job Details</h2>
@@ -81,6 +91,7 @@ function App() {
             </table>
         </div>
         
+        {isValid ? (
         <div>
             <h2>Internal Cost Breakdown</h2>
             <table style={{borderCollapse: "collapse"}}>
@@ -165,11 +176,14 @@ function App() {
                     </tr>
                     <tr>
                         <td style={{paddingRight: "16px"}}><strong>Margin Percent: </strong></td>
-                        <td style={{textAlign: "right"}}>${fmt(margin)} / ${fmt(subtotal)} = <strong>${fmt(marginPercent.toFixed(2))}%</strong></td>
+                        <td style={{textAlign: "right"}}>${fmt(margin)} / ${fmt(subtotal)} = <strong>${fmt(marginPercent)}%</strong></td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        ) : (
+            <p>Fill in all fields above to see estimate.</p>
+        )}
 
         <div>
             <h2>Client Quote</h2>
@@ -184,7 +198,7 @@ function App() {
                         <td style={{textAlign: "right"}}>${fmt(mobCharge)}</td>
                     </tr>
                     {isContingency && (<tr>
-                        <td style={{paddingRight: "16px"}}>Contingency:</td>
+                        <td style={{paddingRight: "16px"}}>Escalation Rate:</td>
                         <td style={{textAlign: "right"}}>${fmt(contingencyPrice)}</td>
                     </tr>)}
                     <tr>
