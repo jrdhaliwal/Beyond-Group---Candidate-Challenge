@@ -1,0 +1,86 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    padding: 24px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #0a2240;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #0a2240;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e87722;
+    text-align: center;
+}
+
+.columns {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    flex: 1;
+    min-width: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+
+td {
+    padding: 2px 0;
+    color: #3a3a3a;
+}
+
+.checkbox {
+    text-align: right;
+    width: 130px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #3a3a3a
+}
+
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+@media (max-width: 920px) {
+    .columns {
+        flex-direction: column;
+    }
+
+    .card {
+        width: 100%;
+    }
+}
