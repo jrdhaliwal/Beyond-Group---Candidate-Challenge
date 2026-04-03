@@ -303,7 +303,7 @@ function App() {
                   <strong>Margin Percent: </strong>
                 </td>
                 <td style={{ textAlign: "right" }}>
-                  <strong>${fmt(marginPercent)}%</strong>
+                  <strong>{fmt(marginPercent)}%</strong>
                 </td>
               </tr>
             </tbody>
