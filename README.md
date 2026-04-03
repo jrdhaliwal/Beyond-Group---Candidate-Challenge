@@ -2,7 +2,7 @@
 
 A lightweight web-based tool that helps Beyond Group team members calculate and present polyurethane foam bids quickly and accurately.
 
-Below is a link to the web app, as well as a link to a Loom walkthrough.
+Below is a link to the web app.
 
 Link: https://beyond-group-foam-bid-calculator.vercel.app
 
